@@ -1,0 +1,79 @@
+-- Key Setup
+local key = "0986" -- Define the correct key here
+
+-- Create GUI elements
+local ScreenGui = Instance.new("ScreenGui")
+local KeyInputBox = Instance.new("TextBox")
+local SubmitButton = Instance.new("TextButton")
+
+-- Parent GUI to the player’s PlayerGui
+ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+-- Configure KeyInputBox
+KeyInputBox.Size = UDim2.new(0, 200, 0, 50)
+KeyInputBox.Position = UDim2.new(0.5, -100, 0.4, 0)
+KeyInputBox.PlaceholderText = "Enter Key Here"
+KeyInputBox.Parent = ScreenGui
+
+-- Configure SubmitButton
+SubmitButton.Size = UDim2.new(0, 100, 0, 50)
+SubmitButton.Position = UDim2.new(0.5, -50, 0.5, 0)
+SubmitButton.Text = "Submit"
+SubmitButton.Parent = ScreenGui
+
+-- Function to handle key submission
+SubmitButton.MouseButton1Click:Connect(function()
+    local inputKey = KeyInputBox.Text -- Get the text from the TextBox
+
+    if inputKey == key then
+        print("Key accepted!")
+        
+        -- Hide the key input GUI
+        ScreenGui:Destroy()
+
+        -- Continue with loading the rest of the script if the key is correct
+        local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+        local Window = Library.CreateLib("LaseryKrazy Hub", "DarkTheme")
+
+        -- Tab 1: Blox Fruit
+        local BloxFruitTab = Window:NewTab("Blox Fruit")
+        local BloxFruitSection = BloxFruitTab:NewSection("Blox Fruit")
+
+        -- Button 1
+        BloxFruitSection:NewButton("Redz hub", "ButtonInfo", function()
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/REDzHUB/BloxFruits/main/redz9999"))()
+            print("Redz hub clicked")
+        end)
+
+        -- Button 2
+        BloxFruitSection:NewButton("Annie hub", "ButtonInfo", function()
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/Anniecuti/Free-Scr/main/Annie-Hub.lua"))()
+            print("Annie hub clicked")
+        end)
+
+        -- Button 3
+        BloxFruitSection:NewButton("MinGaming Hub", "ButtonInfo", function()
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/Basicallyy/Basicallyy/main/MinGamingV4.lua"))()
+            print("MinGaming Hub clicked")
+        end)
+
+        -- Tab 2: Arsenal
+        local ArsenalTab = Window:NewTab("Arsenal")
+        local ArsenalSection = ArsenalTab:NewSection("Arsenal")
+
+        -- Button 1 for Arsenal
+        ArsenalSection:NewButton("Tbao hub", "ButtonInfo", function()
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/tbao143/thaibao/main/TbaoHubArsenal"))()
+            print("Arsenal Hub 1 clicked")
+        end)
+
+        -- Button 2 for Arsenal
+        ArsenalSection:NewButton("CHEAT.FUN", "ButtonInfo", function()
+            loadstring(game:HttpGet("https://pastebin.com/raw/14xXHZQW"))()
+            print("Arsenal Hub 2 clicked")
+        end)
+
+    else
+        print("Incorrect key. Access denied.")
+    end
+end)
