@@ -1,83 +1,100 @@
---Keep Looking like a good boy..💦💦 
+print("Free GUI")
 
--- Old Ass Script 👉👌💦💦❤️❤️
-
--- Key Setup
-local key = "0986" -- Define the correct key here
-
--- Create GUI elements
-local ScreenGui = Instance.new("ScreenGui")
-local KeyInputBox = Instance.new("TextBox")
-local SubmitButton = Instance.new("TextButton")
-
--- Parent GUI to the player’s PlayerGui
-ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-
--- Configure KeyInputBox
-KeyInputBox.Size = UDim2.new(0, 200, 0, 50)
-KeyInputBox.Position = UDim2.new(0.5, -100, 0.4, 0)
-KeyInputBox.PlaceholderText = "Enter Key Here"
-KeyInputBox.Parent = ScreenGui
-
--- Configure SubmitButton
-SubmitButton.Size = UDim2.new(0, 100, 0, 50)
-SubmitButton.Position = UDim2.new(0.5, -50, 0.5, 0)
-SubmitButton.Text = "Submit"
-SubmitButton.Parent = ScreenGui
-
--- Function to handle key submission
-SubmitButton.MouseButton1Click:Connect(function()
-    local inputKey = KeyInputBox.Text -- Get the text from the TextBox
-
-    if inputKey == key then
-        print("Key accepted!")
-        
-        -- Hide the key input GUI
-        ScreenGui:Destroy()
-
-        -- Continue with loading the rest of the script if the key is correct
-        local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
-        local Window = Library.CreateLib("LaseryKrazy Hub", "DarkTheme")
-
-        -- Tab 1: Blox Fruit
-        local BloxFruitTab = Window:NewTab("Blox Fruit")
-        local BloxFruitSection = BloxFruitTab:NewSection("Blox Fruit")
-
-        -- Button 1
-        BloxFruitSection:NewButton("Redz hub", "ButtonInfo", function()
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/REDzHUB/BloxFruits/main/redz9999"))()
-            print("Redz hub clicked")
-        end)
-
-        -- Button 2
-        BloxFruitSection:NewButton("Annie hub", "ButtonInfo", function()
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/Anniecuti/Free-Scr/main/Annie-Hub.lua"))()
-            print("Annie hub clicked")
-        end)
-
-        -- Button 3
-        BloxFruitSection:NewButton("MinGaming Hub", "ButtonInfo", function()
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/Basicallyy/Basicallyy/main/MinGamingV4.lua"))()
-            print("MinGaming Hub clicked")
-        end)
-
-        -- Tab 2: Arsenal
-        local ArsenalTab = Window:NewTab("Arsenal")
-        local ArsenalSection = ArsenalTab:NewSection("Arsenal")
-
-        -- Button 1 for Arsenal
-        ArsenalSection:NewButton("Tbao hub", "ButtonInfo", function()
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/tbao143/thaibao/main/TbaoHubArsenal"))()
-            print("Arsenal Hub 1 clicked")
-        end)
-
-        -- Button 2 for Arsenal
-        ArsenalSection:NewButton("CHEAT.FUN", "ButtonInfo", function()
-            loadstring(game:HttpGet("https://pastebin.com/raw/14xXHZQW"))()
-            print("Arsenal Hub 2 clicked")
-        end)
-
-    else
-        print("Incorrect key. Access denied.")
-    end
+pcall(function()
+	local player = game.Players.LocalPlayer
+	local char = player.Character or player.CharacterAdded:Wait()
+	game:GetService("Chat"):Chat(char.Head, "Free Gui No Bugs No Problems!", Enum.ChatColor.Blue)
 end)
+
+local player = game.Players.LocalPlayer
+local gui = Instance.new("ScreenGui", player:WaitForChild("PlayerGui"))
+gui.Name = "👾 FREE FEATURES! 👾"
+gui.ResetOnSpawn = false
+
+local UIS = game:GetService("UserInputService")
+local dragging, dragInput, dragStart, startPos
+
+local main = Instance.new("Frame")
+main.Size = UDim2.new(0, 400, 0, 300)
+main.Position = UDim2.new(0.3, 0, 0.3, 0)
+main.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+main.BorderSizePixel = 0
+main.Parent = gui
+
+local function makeDraggable(frame)
+	frame.InputBegan:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+			dragging = true
+			dragStart = input.Position
+			startPos = frame.Position
+			input.Changed:Connect(function()
+				if input.UserInputState == Enum.UserInputState.End then
+					dragging = false
+				end
+			end)
+		end
+	end)
+	frame.InputChanged:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+			dragInput = input
+		end
+	end)
+	UIS.InputChanged:Connect(function(input)
+		if input == dragInput and dragging then
+			local delta = input.Position - dragStart
+			frame.Position = UDim2.new(
+				startPos.X.Scale, startPos.X.Offset + delta.X,
+				startPos.Y.Scale, startPos.Y.Offset + delta.Y
+			)
+		end
+	end)
+end
+
+makeDraggable(main)
+
+local tabHolder = Instance.new("Frame", main)
+tabHolder.Size = UDim2.new(1, 0, 0, 30)
+tabHolder.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+
+local layout = Instance.new("UIListLayout", tabHolder)
+layout.FillDirection = Enum.FillDirection.Horizontal
+layout.SortOrder = Enum.SortOrder.LayoutOrder
+
+local contentHolder = Instance.new("Frame", main)
+contentHolder.Position = UDim2.new(0, 0, 0, 30)
+contentHolder.Size = UDim2.new(1, 0, 1, -30)
+contentHolder.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+
+local tabNames = {"Home", "Player", "Items", "Settings", "About"}
+local tabs = {}
+local contents = {}
+
+for i, name in ipairs(tabNames) do
+	local tab = Instance.new("TextButton", tabHolder)
+	tab.Size = UDim2.new(0, 80, 1, 0)
+	tab.Text = name
+	tab.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
+	tab.TextColor3 = Color3.new(1, 1, 1)
+	tab.Font = Enum.Font.SourceSans
+	tab.TextSize = 16
+	tabs[name] = tab
+
+	local page = Instance.new("Frame", contentHolder)
+	page.Size = UDim2.new(1, 0, 1, 0)
+	page.BackgroundColor3 = Color3.fromRGB(70 + i * 10, 70, 70)
+	page.Visible = i == 1
+	contents[name] = page
+
+	local label = Instance.new("TextLabel", page)
+	label.Size = UDim2.new(1, 0, 1, 0)
+	label.Text = name .. " Page"
+	label.TextColor3 = Color3.new(1, 1, 1)
+	label.Font = Enum.Font.SourceSansBold
+	label.TextScaled = true
+	label.BackgroundTransparency = 1
+
+	tab.MouseButton1Click:Connect(function()
+		for _, v in pairs(contents) do v.Visible = false end
+		page.Visible = true
+	end)
+end
